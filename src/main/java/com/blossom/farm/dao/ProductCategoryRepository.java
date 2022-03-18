@@ -10,6 +10,8 @@ import com.blossom.farm.model.ProductCategory;
 @RepositoryRestResource(collectionResourceRel = "productCategory", path = "product-category")
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long> {
 	
-	
+/*	@Query("SELECT cat FROM Category cat  WHERE cat.phoneType=(:pType) AND con.lastName= (:lName)")
+    List<ProductCategory> findByLastNameAndPhoneType(@Param("pType") PhoneType pType, @Param("lName") String lName);
+}*/
 
 }

@@ -12,5 +12,5 @@ import com.blossom.farm.model.Product;
 public interface ProductRespository extends JpaRepository<Product, Long> {
 	
 	Page<Product> findByCategoryId(@RequestParam("id") Long id, Pageable pageable);
-
+	
 }
