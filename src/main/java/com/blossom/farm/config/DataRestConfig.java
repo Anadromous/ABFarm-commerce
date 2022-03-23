@@ -14,8 +14,10 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
+import com.blossom.farm.model.Country;
 import com.blossom.farm.model.Product;
 import com.blossom.farm.model.ProductCategory;
+import com.blossom.farm.model.State;
 
 @Configuration
 public class DataRestConfig implements RepositoryRestConfigurer{
@@ -32,18 +34,20 @@ public class DataRestConfig implements RepositoryRestConfigurer{
 
 		HttpMethod [] unsupportedActions = {HttpMethod.PUT, HttpMethod.DELETE, HttpMethod.POST};
 		
-		config.getExposureConfiguration()
-		.forDomainType(Product.class)
-		.withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions))
-		.withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions));
-		
-		config.getExposureConfiguration()
-		.forDomainType(ProductCategory.class)	
-		.withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions))
-		.withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions));
+		disableHttpMethods(ProductCategory.class, config, unsupportedActions);
+		disableHttpMethods(Product.class, config, unsupportedActions);
+		disableHttpMethods(Country.class, config, unsupportedActions);
+		disableHttpMethods(State.class, config, unsupportedActions);
 		
 		//call helper method: exposeIds
 		exposeIds(config);
+	}
+
+	private void disableHttpMethods(Class classToDisable, RepositoryRestConfiguration config, HttpMethod[] unsupportedActions) {
+		config.getExposureConfiguration()
+		.forDomainType(classToDisable)	
+		.withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions))
+		.withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions));
 	}
 	
 	private void exposeIds(RepositoryRestConfiguration config) {
