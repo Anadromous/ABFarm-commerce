@@ -1,10 +1,10 @@
 com\blossom\farm\model\Country.class
 com\blossom\farm\model\ProductCategory.class
 com\blossom\farm\FarmApplication.class
-com\blossom\farm\dao\ProductRespository.class
 com\blossom\farm\model\State.class
+com\blossom\farm\config\DataRestConfig.class
+com\blossom\farm\model\Product.class
+com\blossom\farm\dao\ProductRespository.class
 com\blossom\farm\dao\StateRepository.class
 com\blossom\farm\dao\ProductCategoryRepository.class
 com\blossom\farm\dao\CountryRepository.class
-com\blossom\farm\config\DataRestConfig.class
-com\blossom\farm\model\Product.class

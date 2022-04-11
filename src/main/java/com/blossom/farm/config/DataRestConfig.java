@@ -15,6 +15,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import com.blossom.farm.model.Country;
+import com.blossom.farm.model.Produce;
+import com.blossom.farm.model.ProduceCategory;
 import com.blossom.farm.model.Product;
 import com.blossom.farm.model.ProductCategory;
 import com.blossom.farm.model.State;
@@ -36,6 +38,8 @@ public class DataRestConfig implements RepositoryRestConfigurer{
 		
 		disableHttpMethods(ProductCategory.class, config, unsupportedActions);
 		disableHttpMethods(Product.class, config, unsupportedActions);
+		disableHttpMethods(ProduceCategory.class, config, unsupportedActions);
+		disableHttpMethods(Produce.class, config, unsupportedActions);
 		disableHttpMethods(Country.class, config, unsupportedActions);
 		disableHttpMethods(State.class, config, unsupportedActions);
 		
