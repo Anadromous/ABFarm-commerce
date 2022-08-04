@@ -47,8 +47,9 @@ public class CheckoutServiceImpl implements CheckoutService{
 		Customer customer = purchase.getCustomer();
 		customer.add(order);
 		
-		//save to the dababase
+		//save to the database
 		customerRepository.save(customer);
+		System.out.println("----Do you see me?-----");
 		
 		//return a response
 		return new PurchaseResponse(orderTrackingNumber);
