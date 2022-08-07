@@ -4,7 +4,7 @@ import com.blossom.farm.dto.Purchase;
 
 public interface EmailService {
 
-	public String sendOrderEmail(Purchase purchase);
+	public String sendConfirmationEmail(Purchase purchase);
 	
 	public String sendEmail();
 	

@@ -25,9 +25,7 @@ public class CheckoutController {
     public PurchaseResponse placeOrder(@RequestBody Purchase purchase) {
 
         PurchaseResponse purchaseResponse = checkoutService.placeOrder(purchase);
-
         return purchaseResponse;
     }
-
 }
 

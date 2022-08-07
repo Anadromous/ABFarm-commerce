@@ -24,9 +24,9 @@ public class EmailController {
 	}
 
 
-	  @GetMapping("/sendOrderEmail") 
-	  public String sendEmail(@RequestBody Purchase purchase) { return
-	  emailService.sendOrderEmail(purchase); }
+	  @GetMapping("/sendConfirmationEmail") 
+	  public String sendConfirmationEmail(@RequestBody Purchase purchase) { return
+	  emailService.sendConfirmationEmail(purchase); }
 	 
 
 	@GetMapping("/sendEmailwithAttachment")

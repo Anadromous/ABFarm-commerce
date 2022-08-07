@@ -1,10 +1,12 @@
 C:\chapman\dev\ABFarm\ABFarm-commerce\src\main\java\com\blossom\farm\model\ProductCategory.java
+C:\chapman\dev\ABFarm\ABFarm-commerce\src\main\java\com\blossom\farm\WebConfig.java
 C:\chapman\dev\ABFarm\ABFarm-commerce\src\main\java\com\blossom\farm\dto\PurchaseResponse.java
 C:\chapman\dev\ABFarm\ABFarm-commerce\src\main\java\com\blossom\farm\service\CheckoutService.java
 C:\chapman\dev\ABFarm\ABFarm-commerce\src\main\java\com\blossom\farm\model\Produce.java
 C:\chapman\dev\ABFarm\ABFarm-commerce\src\main\java\com\blossom\farm\service\EmailService.java
 C:\chapman\dev\ABFarm\ABFarm-commerce\src\main\java\com\blossom\farm\controller\CheckoutController.java
 C:\chapman\dev\ABFarm\ABFarm-commerce\src\main\java\com\blossom\farm\service\CheckoutServiceImpl.java
+C:\chapman\dev\ABFarm\ABFarm-commerce\src\main\java\com\blossom\farm\config\AppConfig.java
 C:\chapman\dev\ABFarm\ABFarm-commerce\src\main\java\com\blossom\farm\FarmApplication.java
 C:\chapman\dev\ABFarm\ABFarm-commerce\src\main\java\com\blossom\farm\config\DataRestConfig.java
 C:\chapman\dev\ABFarm\ABFarm-commerce\src\main\java\com\blossom\farm\dao\ProduceRepository.java

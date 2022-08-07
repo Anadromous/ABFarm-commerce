@@ -40,14 +40,14 @@ public class Produce {
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "unit_price")
-	private BigDecimal unitPrice;
+	@Column(name = "unit_pounds")
+	private BigDecimal unitPounds;
 	
 	@Column(name = "image_url")
 	private String imageUrl;
 	
-	@Column(name = "active")
-	private boolean active;
+	@Column(name = "unit_price")
+	private BigDecimal unitPrice;
 	
 	@Column(name = "units_in_stock")
 	private int unitsInStock;
