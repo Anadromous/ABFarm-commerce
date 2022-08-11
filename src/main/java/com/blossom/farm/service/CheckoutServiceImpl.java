@@ -1,20 +1,18 @@
 package com.blossom.farm.service;
 
-import com.blossom.farm.model.Customer;
-import com.blossom.farm.model.Order;
-import com.blossom.farm.model.OrderItem;
-
 import java.util.Set;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blossom.farm.dao.CustomerRepository;
 import com.blossom.farm.dto.Purchase;
 import com.blossom.farm.dto.PurchaseResponse;
+import com.blossom.farm.model.Customer;
+import com.blossom.farm.model.Order;
+import com.blossom.farm.model.OrderItem;
 
 @Service
 public class CheckoutServiceImpl implements CheckoutService{
@@ -24,9 +22,6 @@ public class CheckoutServiceImpl implements CheckoutService{
 	public CheckoutServiceImpl(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
 	}
-	
-    @Autowired
-    private EmailService emailService;
 
 	@Override
 	@Transactional
@@ -54,8 +49,6 @@ public class CheckoutServiceImpl implements CheckoutService{
 		//save to the database
 		customerRepository.save(customer);
 		System.out.println("----Saving Customer----");
-		emailService.sendConfirmationEmail(purchase);
-		System.out.println("----Sending Email----");
 		
 		//return a response
 		return new PurchaseResponse(orderTrackingNumber);
