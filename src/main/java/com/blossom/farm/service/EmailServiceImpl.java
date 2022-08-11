@@ -23,10 +23,13 @@ public class EmailServiceImpl implements EmailService {
 	public Purchase sendConfirmationEmail(Purchase purchase) {
 		System.out.println("Sending cofirmation email");
 		SimpleMailMessage message = new SimpleMailMessage();
-		//javaMailSender = new JavaM
+		StringBuilder sb = new StringBuilder();
+        sb.append(purchase.getCustomer().getFirstName()+", thank you for your purchase from Apple Blossom Farm!").append(System.lineSeparator());
+        sb.append("Here is your order tracking number:").append(System.lineSeparator());
+		sb.append(purchase.getOrder().getOrderTrackingNumber()).append(System.lineSeparator());
 		message.setFrom(email);
 		message.setTo(purchase.getCustomer().getEmail());	
-				message.setSubject("Test Email from ABF website!");
+		message.setSubject("Test Email from ABF website!");
 		message.setText(purchase.getCustomer().getFirstName()+", thank you for your purchase from Apple Blossom Farm!\n\n"
 				+ "Here is your order tracking number:\n"
 				+ " "+purchase.getOrder().getOrderTrackingNumber()+"\n\n"
