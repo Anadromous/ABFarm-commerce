@@ -1,5 +1,7 @@
 package com.blossom.farm.service;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.blossom.farm.dto.Purchase;
 import com.blossom.farm.model.Contact;
+import com.blossom.farm.model.OrderItem;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -27,6 +30,10 @@ public class EmailServiceImpl implements EmailService {
         sb.append(purchase.getCustomer().getFirstName()+", thank you for your purchase from Apple Blossom Farm!").append(System.lineSeparator());
         sb.append("Here is your order tracking number:").append(System.lineSeparator());
 		sb.append(purchase.getOrder().getOrderTrackingNumber()).append(System.lineSeparator());
+		Set<OrderItem> orderItems = purchase.getOrderItems(); 
+		for(OrderItem item : orderItems) { 
+			sb.append(item.get 
+		}
 		message.setFrom(email);
 		message.setTo(purchase.getCustomer().getEmail());	
 		message.setSubject("Test Email from ABF website!");
