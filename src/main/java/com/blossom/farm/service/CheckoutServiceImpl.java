@@ -1,7 +1,7 @@
 package com.blossom.farm.service;
 
+import java.util.Random;
 import java.util.Set;
-import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -47,8 +47,8 @@ public class CheckoutServiceImpl implements CheckoutService{
 		customer.add(order);
 		
 		//save to the database
-		customerRepository.save(customer);
 		System.out.println("----Saving Customer----");
+		customerRepository.save(customer);
 		
 		//return a response
 		return new PurchaseResponse(orderTrackingNumber);
@@ -56,8 +56,17 @@ public class CheckoutServiceImpl implements CheckoutService{
 	}
 
 	private String generateTrackingNumber() {
+		//one way	
+		//String r = Math.random().nextInt(999999).toString().padLeft(6, '0');
 		// generate random UUID - google wikipedia Universally Unique Identifier version 4
-		return UUID.randomUUID().toString();
+		Integer otp = new Random().nextInt(999999);
+		int noOfOtpDigit=6;
+		  while(Integer.toString(otp).length()!=noOfOtpDigit) {
+		  otp = new Random().nextInt(999999);
+		 }
+		//return UUID.randomUUID().toString();
+		  return String.valueOf(otp);
+		
 	}
 
 }
