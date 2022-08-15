@@ -1,27 +1,45 @@
 package com.blossom.farm.service;
 
+import java.util.Iterator;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blossom.farm.dao.CustomerRepository;
+import com.blossom.farm.dao.ProduceRepository;
+import com.blossom.farm.dao.ProductRespository;
 import com.blossom.farm.dto.Purchase;
 import com.blossom.farm.dto.PurchaseResponse;
 import com.blossom.farm.model.Customer;
 import com.blossom.farm.model.Order;
 import com.blossom.farm.model.OrderItem;
+import com.blossom.farm.model.Produce;
+import com.blossom.farm.model.Product;
 
 @Service
 public class CheckoutServiceImpl implements CheckoutService{
-	
+	@Autowired
 	private CustomerRepository customerRepository;
+	@Autowired
+	private ProduceRepository produceRepository;
+	@Autowired
+	private ProductRespository productRepository;
 	
-	public CheckoutServiceImpl(CustomerRepository customerRepository) {
-		this.customerRepository = customerRepository;
+	public CheckoutServiceImpl() {
+		
 	}
+	
+	/*
+	 * public CheckoutServiceImpl(CustomerRepository customerRepository,
+	 * ProduceRepository produceRepository, ProductRespository productRepository) {
+	 * this.customerRepository = customerRepository; this.produceRepository =
+	 * produceRepository; this.productRepository = productRepository; }
+	 */
 
 	@Override
 	@Transactional
@@ -36,8 +54,25 @@ public class CheckoutServiceImpl implements CheckoutService{
 		
 		//populate order with orderItem
 		Set<OrderItem> orderItems = purchase.getOrderItems();
-		orderItems.forEach(item -> order.add(item));
-		
+		Iterator<OrderItem> itemIterator = orderItems.iterator();
+			OrderItem item = itemIterator.next();
+			int quantity = item.getQuantity();
+			int productQuantity;
+			if(item.getCategoryId()<50) {
+				System.out.println("******Updating Product Count*****");
+				Product product = productRepository.findById((Long)item.getProductId()).get();
+				productQuantity=product.getUnitsInStock();
+				product.setUnitsInStock(productQuantity-quantity);
+				productRepository.save(product);
+				System.out.println("Updated Product Quantity");
+			}else{
+				System.out.println("******Updating Produce Count*****");
+				Produce produce = produceRepository.findById((Long)item.getProductId()).get();
+				productQuantity=produce.getUnitsInStock();
+				produce.setUnitsInStock(productQuantity-quantity);
+				produceRepository.save(produce);
+				System.out.println("Updated Produce Quantity");
+			}
 		//populate order with shipping and billing addresses
 		order.setBillingAddress(purchase.getBillingAddress());
 		order.setShippingAddress(purchase.getShippingAddress());

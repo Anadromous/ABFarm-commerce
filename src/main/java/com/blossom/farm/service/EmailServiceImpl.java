@@ -30,12 +30,13 @@ public class EmailServiceImpl implements EmailService {
 		System.out.println("Sending cofirmation email: "+purchase.toString());
 		System.out.println("Purchase Tracking Number: "+purchase.getOrderId());
 		Order order = purchase.getOrder();
-		System.out.println("Order from purchase: "+ order.getTotalPrice());
 		SimpleMailMessage message = new SimpleMailMessage();
 		StringBuilder sb = new StringBuilder();
         sb.append(purchase.getCustomer().getFirstName()+", thank you for your purchase from Apple Blossom Farm!").append(System.lineSeparator());
-        sb.append("Here is your order tracking number: "+purchase.getOrderId()).append(System.lineSeparator());
+        sb.append(System.lineSeparator());
+        sb.append("____________________________________________").append(System.lineSeparator());
         sb.append("Your order:").append(System.lineSeparator());
+        sb.append("Order tracking number: "+purchase.getOrderId()).append(System.lineSeparator());
 		Set<OrderItem> orderItems = purchase.getOrderItems(); 
 		System.out.println("Order item length: "+orderItems.size());
 		Iterator<OrderItem> itemIterator = orderItems.iterator();
@@ -48,7 +49,9 @@ public class EmailServiceImpl implements EmailService {
 			sb.append("Price: "+item.getUnitPrice().multiply(new BigDecimal(item.getQuantity())))
 			.append(System.lineSeparator());
 		}
-		sb.append("Total Order: "+order.getTotalPrice());
+		sb.append("Total Order: "+order.getTotalPrice()).append(System.lineSeparator());
+        sb.append("____________________________________________");
+        sb.append(System.lineSeparator());
 		sb.append(System.lineSeparator());
 		sb.append("We will be in contact with you shortly to complete the order and arrange delivery.").append(System.lineSeparator());
 		sb.append("Sincerely,").append(System.lineSeparator());
