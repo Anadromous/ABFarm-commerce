@@ -55,13 +55,19 @@ public class CheckoutServiceImpl implements CheckoutService{
 		//populate order with orderItem
 		Set<OrderItem> orderItems = purchase.getOrderItems();
 		Iterator<OrderItem> itemIterator = orderItems.iterator();
+		while(itemIterator.hasNext()) {
 			OrderItem item = itemIterator.next();
+			System.out.println("+++++++++++++++++++++++++++++++++++++++++++");
+			System.out.println("******Curent item quantity: "+item.getQuantity());
 			int quantity = item.getQuantity();
 			int productQuantity;
 			if(item.getCategoryId()<50) {
 				System.out.println("******Updating Product Count*****");
 				Product product = productRepository.findById((Long)item.getProductId()).get();
 				productQuantity=product.getUnitsInStock();
+				System.out.println("******Curent Product: "+product.getDescription());
+				System.out.println("******Curent Puchase Quantity: "+quantity);
+				System.out.println("******Curent Quantity: "+productQuantity);
 				product.setUnitsInStock(productQuantity-quantity);
 				productRepository.save(product);
 				System.out.println("Updated Product Quantity");
@@ -73,6 +79,7 @@ public class CheckoutServiceImpl implements CheckoutService{
 				produceRepository.save(produce);
 				System.out.println("Updated Produce Quantity");
 			}
+		}
 		//populate order with shipping and billing addresses
 		order.setBillingAddress(purchase.getBillingAddress());
 		order.setShippingAddress(purchase.getShippingAddress());
