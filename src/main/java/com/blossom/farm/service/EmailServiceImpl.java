@@ -1,6 +1,7 @@
 package com.blossom.farm.service;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -11,10 +12,12 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.blossom.farm.dao.ProduceRepository;
 import com.blossom.farm.dto.Purchase;
 import com.blossom.farm.model.Contact;
 import com.blossom.farm.model.Order;
 import com.blossom.farm.model.OrderItem;
+import com.blossom.farm.model.Produce;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -24,6 +27,8 @@ public class EmailServiceImpl implements EmailService {
 
 	@Autowired
 	JavaMailSender javaMailSender;
+	@Autowired
+	private ProduceRepository produceRepository;
 
 	@Override
 	public Purchase sendConfirmationEmail(Purchase purchase) {
@@ -32,24 +37,28 @@ public class EmailServiceImpl implements EmailService {
 		Order order = purchase.getOrder();
 		SimpleMailMessage message = new SimpleMailMessage();
 		StringBuilder sb = new StringBuilder();
+		DecimalFormat df = new DecimalFormat("0.00");
         sb.append(purchase.getCustomer().getFirstName()+", thank you for your purchase from Apple Blossom Farm!").append(System.lineSeparator());
         sb.append(System.lineSeparator());
         sb.append("____________________________________________").append(System.lineSeparator());
         sb.append("Your order:").append(System.lineSeparator());
         sb.append("Order tracking number: "+purchase.getOrderId()).append(System.lineSeparator());
-		Set<OrderItem> orderItems = purchase.getOrderItems(); 
+		Set<OrderItem> orderItems = purchase.getOrderItems();
 		System.out.println("Order item length: "+orderItems.size());
 		Iterator<OrderItem> itemIterator = orderItems.iterator();
 		while(itemIterator.hasNext()) {
 			OrderItem item = itemIterator.next();
+			@SuppressWarnings("deprecation")
+			Produce product = produceRepository.getOne(item.getProductId());
 			sb.append("Product: "+item.getProductName());
 			sb.append(" / ");
 			sb.append("Quantity: "+item.getQuantity());
 			sb.append(" / ");
-			sb.append("Price: "+item.getUnitPrice().multiply(new BigDecimal(item.getQuantity())))
-			.append(System.lineSeparator());
+		    BigDecimal quantity = new BigDecimal(item.getQuantity());
+			sb.append("Price: $"+df.format(item.getUnitPrice().multiply(product.getUnitPounds()).multiply(quantity)));
+			sb.append(System.lineSeparator());
 		}
-		sb.append("Total Order: "+order.getTotalPrice()).append(System.lineSeparator());
+		sb.append("Total Order: $"+df.format(order.getTotalPrice())).append(System.lineSeparator());
         sb.append("____________________________________________");
         sb.append(System.lineSeparator());
 		sb.append(System.lineSeparator());
